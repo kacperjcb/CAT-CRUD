@@ -1,0 +1,26 @@
+<html>
+<h1> TEST </h1>
+{% set test = 0 %}
+{% for cat in cats %}
+    {% if cat.isAdoptable == true %}
+        {% set test = test + 1 %}
+
+    {% endif %}
+
+
+{% else %}
+    <tr>
+        <td colspan="5">Error 404 no cats available for adoption</td>
+    </tr>
+{% endfor %}
+
+</tbody>
+</table>
+{{test}} - "How many cat's are available for adoption ";
+<div class="low-button"><a href="{{ path('app_cat_index') }}" class="btn btn-secondary btn-lg btn-block">back to
+        list</a>
+</div>
+
+
+
+</html>

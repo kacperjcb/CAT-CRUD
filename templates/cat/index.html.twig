@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cat index{% endblock %}
+
+{% block body %}
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>IsAdoptable</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        <img src="https://placekitten.com/{{randcat}}" class="img-circle" alt="Cinque Terre" width="304" height="236">
+
+        {% for cat in cats %}
+            <tr>
+                <td>{{ cat.id }}</td>
+                <td>{{ cat.name }}</td>
+                <td>{{ cat.age }}</td>
+                <td>{{ cat.isAdoptable ? 'Yes' : 'No' }}</td>
+                <td>
+
+
+                    <a href="{{ path('app_cat_show', {'id': cat.id}) }}">show</a>
+                    <a href="{{ path('app_cat_edit', {'id': cat.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+
+
+
+    </table>
+    {% set count = 0 %}
+    {% for cat in cats %}
+        {% if cat.isAdoptable == true %}
+            {% set count = count + 1 %}
+
+        {% endif %}
+
+
+    {% else %}
+
+        <p>No cats available for adoption </p>
+
+    {% endfor %}
+
+
+    How many cat's are available for adoption:  {{count}}
+<br>
+
+
+
+
+
+    <a href="{{ path('app_cat_new') }}">Create new</a>
+{% endblock %}
