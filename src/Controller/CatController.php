@@ -19,12 +19,12 @@ class CatController extends AbstractController
     public function index(CatRepository $catRepository): Response
     {
         $randcat=rand(1,169);
-        $adoptablecats=[];
+
 
         return $this->render('cat/index.html.twig', [
             'cats' => $catRepository->findAll(),
             'randcat'=>$randcat,
-            '$adoptablecats'=>$adoptablecats,
+
 
         ]);
 
@@ -33,22 +33,12 @@ class CatController extends AbstractController
     public function count(CatRepository $catRepository){
 
         return $this->render('cat/count.html.twig', [
-            'cats' => $catRepository->findAll(),
+            'adoptablecats'=>$catRepository->findAll(),
         ]);
 
     }
-    #[Route('/test/{slug}')]
-    public function test(string $slug=null) : Response
-    {
-        if ($slug) {
-            $title = 'Genre '.u(str_replace('-', ' ', $slug))->title(true);
 
-        }else{
-            $title="All";
-        }
 
-        return new Response($title);
-    }
 
     #[Route('/new', name: 'app_cat_new', methods: ['GET', 'POST'])]
     public function new(Request $request, CatRepository $catRepository): Response

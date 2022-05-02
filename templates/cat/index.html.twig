@@ -41,22 +41,11 @@
 
 
     </table>
-    {% set count = 0 %}
-    {% for cat in cats %}
-        {% if cat.isAdoptable == true %}
-            {% set count = count + 1 %}
 
-        {% endif %}
+<hr>
 
 
-    {% else %}
 
-        <p>No cats available for adoption </p>
-
-    {% endfor %}
-
-
-    How many cat's are available for adoption:  {{count}}
 <br>
 
 
@@ -64,4 +53,5 @@
 
 
     <a href="{{ path('app_cat_new') }}">Create new</a>
+    <a class="btn btn-primary" href="../cat/isAdoptable" role="button">Only Adoptable cats</a>
 {% endblock %}
