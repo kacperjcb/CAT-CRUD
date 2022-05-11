@@ -30,8 +30,10 @@
 {% endfor %}
 {% set count = 0 %}
 {% for cat in adoptablecats %}
+
     {% if cat.isAdoptable == true %}
         {% set count = count + 1 %}
+
 
     {% endif %}
 
@@ -49,6 +51,7 @@
 
 </table>
 How many cat's are available for adoption:  {{count}}
+
 <br>
 <a class="btn btn-primary" href="../cat" role="button">Return to all cats</a>
 

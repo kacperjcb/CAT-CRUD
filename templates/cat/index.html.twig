@@ -3,22 +3,87 @@
 {% block title %}Cat index{% endblock %}
 
 {% block body %}
+<head>
 
+
+</head>
+<body>
 
     <table class="table">
         <thead>
             <tr>
+
                 <th>Id</th>
-                <th>Name</th>
-                <th>Age</th>
+                <form>
+                <th>Name <input name="namesort" type="submit">
+                    </form>
+<form>
+                <th>Age <input name="agesort" type="submit"> </th>
+
+                </form>
+
                 <th>IsAdoptable</th>
                 <th>actions</th>
+                {% if namesort is not null %}
+
+                {% for cat in cats|sort((a, b) => a.name <=> b.name) %}
+
+            <tr>
+                <td>{{ cat.id }}</td>
+                <td>{{ cat.name }}</td>
+                <td>{{ cat.age }}</td>
+                <td>{{ cat.isAdoptable ? 'Yes' : 'No' }}</td>
+                <td>
+
+
+                    <a href="{{ path('app_cat_show', {'id': cat.id}) }}">show</a>
+                    <a href="{{ path('app_cat_edit', {'id': cat.id}) }}">edit</a>
+                </td>
+            </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">no records found</td>
+                </tr>
+            {% endfor %}
+
+                {% endif %}
+
+                {% if agesort is not null %}
+                    {% for cat in cats|sort((a, b) => a.age <=> b.age) %}
+
+                        <tr>
+                            <td>{{ cat.id }}</td>
+                            <td>{{ cat.name }}</td>
+                            <td>{{ cat.age }}</td>
+                            <td>{{ cat.isAdoptable ? 'Yes' : 'No' }}</td>
+                            <td>
+
+
+                                <a href="{{ path('app_cat_show', {'id': cat.id}) }}">show</a>
+                                <a href="{{ path('app_cat_edit', {'id': cat.id}) }}">edit</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5">no records found</td>
+                        </tr>
+                    {% endfor %}
+
+
+
+                {% endif %}
+
+
             </tr>
         </thead>
-        <tbody>
-        <img src="https://placekitten.com/{{randcat}}" class="img-circle" alt="Cinque Terre" width="304" height="236">
 
+        <tbody>
+
+
+        <img src="https://cataas.com/cat" class="img-circle" alt="Cinque Terre" width="304" height="236">
+        {% if (agesort is null) and (namesort is null) %}
         {% for cat in cats %}
+
             <tr>
                 <td>{{ cat.id }}</td>
                 <td>{{ cat.name }}</td>
@@ -36,22 +101,35 @@
                 <td colspan="5">no records found</td>
             </tr>
         {% endfor %}
+        {% endif %}
         </tbody>
 
 
 
     </table>
 
-<hr>
+
+    <div class="container-fluid">
+        <div class="row">
+        <div class="col-sm-6 col-md-6 col-lg-6">
+            <div class="text-left">
+<a href="{{ path('app_cat_new') }}">Create new cat</a>
+<a class="btn btn-primary" href="../cat/isAdoptable" role="button">Only Adoptable cats</a>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-6">
+            <div class="text-right">
+
+<form>
+    Find cat:
+    <input name="search" value="{{search}}"/><button type="submit">Search</button>
+                </form>
+        </div>
+    </div>
+    </div>
+    </div>
+</body>
 
 
 
-<br>
-
-
-
-
-
-    <a href="{{ path('app_cat_new') }}">Create new</a>
-    <a class="btn btn-primary" href="../cat/isAdoptable" role="button">Only Adoptable cats</a>
 {% endblock %}

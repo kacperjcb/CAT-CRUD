@@ -5,27 +5,45 @@ namespace App\Controller;
 use App\Entity\Cat;
 use App\Form\CatType;
 use App\Repository\CatRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use function Symfony\Component\String\u;
+
 
 #[Route('/cat')]
 class CatController extends AbstractController
 {
     #[Route('/', name: 'app_cat_index', methods: ['GET'])]
 
-    public function index(CatRepository $catRepository): Response
+    public function index(CatRepository $catRepository,Request $request): Response
     {
-        $randcat=rand(1,169);
+        $search = $request->get('search');
+        $sort=$request->get('sort1');
+        $namesort=$request->get('namesort');
+        $agesort=$request->get('agesort');
 
+
+if($search!==null) {
+    /** @var ArrayCollection $cats */
+    $cats = $catRepository->findBy([
+        'name' => $search,
+    ]);
+}
+        if($sort!==null){
+            /** @var ArrayCollection $cats */
+            $cats = $catRepository->findBy([
+                'name' => $search,
+                ]);
+        }
 
         return $this->render('cat/index.html.twig', [
-            'cats' => $catRepository->findAll(),
-            'randcat'=>$randcat,
-
-
+            'cats'=>($search)?$catRepository->search($search, $sort) : $catRepository->findAll(),
+            'search'=>$search,
+            'sort'=>$sort,
+            'namesort'=>$namesort,
+            'agesort'=>$agesort,
         ]);
 
     }
@@ -65,6 +83,7 @@ class CatController extends AbstractController
             'cat' => $cat,
         ]);
     }
+
 
     #[Route('/{id}/edit', name: 'app_cat_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Cat $cat, CatRepository $catRepository): Response
