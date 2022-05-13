@@ -26,11 +26,11 @@
                 <th>actions</th>
                 {% if namesort is not null %}
 
-                {% for cat in cats|sort((a, b) => a.name <=> b.name) %}
+                {% for cat in cats|sort((a, b) => a.name|capitalize <=> b.name|capitalize) %}
 
             <tr>
                 <td>{{ cat.id }}</td>
-                <td>{{ cat.name }}</td>
+                <td>{{ cat.name|capitalize}}</td>
                 <td>{{ cat.age }}</td>
                 <td>{{ cat.isAdoptable ? 'Yes' : 'No' }}</td>
                 <td>
@@ -53,7 +53,7 @@
 
                         <tr>
                             <td>{{ cat.id }}</td>
-                            <td>{{ cat.name }}</td>
+                            <td>{{ cat.name|capitalize }}</td>
                             <td>{{ cat.age }}</td>
                             <td>{{ cat.isAdoptable ? 'Yes' : 'No' }}</td>
                             <td>
@@ -86,7 +86,7 @@
 
             <tr>
                 <td>{{ cat.id }}</td>
-                <td>{{ cat.name }}</td>
+                <td>{{ cat.name|capitalize }}</td>
                 <td>{{ cat.age }}</td>
                 <td>{{ cat.isAdoptable ? 'Yes' : 'No' }}</td>
                 <td>
