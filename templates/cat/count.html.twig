@@ -19,7 +19,7 @@
     <tr>
     {% if cat.isAdoptable == 1 %}
 
-        <td>{{ cat.name }}</td>
+        <td>{{ cat.name|capitalize }}</td>
         <td> {{cat.age}} </td>
         <br>
     {% endif %}
