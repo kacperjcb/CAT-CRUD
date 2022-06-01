@@ -49,7 +49,7 @@ class CatRepository extends ServiceEntityRepository
     //  * @return Cat[] Returns an array of Cat objects
     //  */
 
-    public function search(?string $name, ?string $type)
+    public function search(?string $name)
     {
         $queryBuilder= $this->createQueryBuilder('c')
             ->where('c.name LIKE :name')

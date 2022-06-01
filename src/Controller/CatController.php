@@ -31,17 +31,11 @@ if($search!==null) {
         'name' => $search,
     ]);
 }
-        if($sort!==null){
-            /** @var ArrayCollection $cats */
-            $cats = $catRepository->findBy([
-                'name' => $search,
-                ]);
-        }
+
 
         return $this->render('cat/index.html.twig', [
-            'cats'=>($search)?$catRepository->search($search, $sort) : $catRepository->findAll(),
+            'cats'=>($search)?$catRepository->search($search) : $catRepository->findAll(),
             'search'=>$search,
-            'sort'=>$sort,
             'namesort'=>$namesort,
             'agesort'=>$agesort,
         ]);
